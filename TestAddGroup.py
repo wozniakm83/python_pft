@@ -3,6 +3,7 @@ from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium.webdriver.common.action_chains import ActionChains
 import time, unittest
 
+
 def is_alert_present(wd):
     try:
         wd.switch_to_alert().text
@@ -10,23 +11,18 @@ def is_alert_present(wd):
     except:
         return False
 
+
 class TestAddGroup(unittest.TestCase):
     def setUp(self):
-        self.wd = WebDriver()
+        self.wd = WebDriver(capabilities={"marionette": False})
+        """self.wd = WebDriver(capabilities={"marionette": False},
+                            firefox_binary="C:/Program Files (x86)/Mozilla Firefox ESR/firefox.exe")"""
         self.wd.implicitly_wait(60)
     
     def test_TestAddGroup(self):
         success = True
         wd = self.wd
         wd.get("http://localhost/addressbook/")
-        wd.find_element_by_name("user").click()
-        wd.find_element_by_name("user").clear()
-        wd.find_element_by_name("user").send_keys("admin")
-        wd.find_element_by_name("pass").click()
-        wd.find_element_by_name("pass").clear()
-        wd.find_element_by_name("pass").send_keys("admin")
-        wd.find_element_by_xpath("//form[@id='LoginForm']/input[3]").click()
-        wd.find_element_by_css_selector("body").click()
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
         wd.find_element_by_name("user").send_keys("admin")
@@ -48,6 +44,7 @@ class TestAddGroup(unittest.TestCase):
         wd.find_element_by_name("group_footer").send_keys("test")
         wd.find_element_by_name("submit").click()
         wd.find_element_by_link_text("group page").click()
+        wd.find_element_by_name("logout").click()
         self.assertTrue(success)
     
     def tearDown(self):
