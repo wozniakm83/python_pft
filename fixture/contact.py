@@ -74,6 +74,7 @@ class ContactHelper:
         self.select_group()
         self.submit_contact_creation()
         self.return_to_home_page()
+        self.contact_cache = None
 
     def create_if_required(self, contact):
         self.app.goto.home_page()
@@ -87,6 +88,7 @@ class ContactHelper:
         self.fill_contact_form(contact)
         self.submit_contact_modification()
         self.return_to_home_page()
+        self.contact_cache = None
 
     def delete(self):
         self.app.goto.home_page()
@@ -94,17 +96,21 @@ class ContactHelper:
         self.submit_contact_deletion()
         self.confirm_contact_deletion()
         self.return_to_home_page()
+        self.contact_cache = None
 
     def return_to_home_page(self):
         self.app.goto.home_page()
 
+    contact_cache = None
+
     def get_contact_list(self):
-        wd = self.app.wd
-        self.app.goto.home_page()
-        contacts = []
-        for element in wd.find_elements_by_name("entry"):
-            id = element.find_element_by_name("selected[]").get_attribute("value")
-            firstname = element.find_element_by_css_selector("td:nth-child(3)").text
-            lastname = element.find_element_by_css_selector("td:nth-child(2)").text
-            contacts.append(Contact(firstname=firstname, lastname=lastname, id=id))
-        return contacts
+        if self.contact_cache is None:
+            wd = self.app.wd
+            self.app.goto.home_page()
+            self.contact_cache = []
+            for element in wd.find_elements_by_name("entry"):
+                id = element.find_element_by_name("selected[]").get_attribute("value")
+                firstname = element.find_element_by_css_selector("td:nth-child(3)").text
+                lastname = element.find_element_by_css_selector("td:nth-child(2)").text
+                self.contact_cache.append(Contact(firstname=firstname, lastname=lastname, id=id))
+        return list(self.contact_cache)

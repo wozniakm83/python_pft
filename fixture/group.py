@@ -52,6 +52,7 @@ class GroupHelper:
         self.fill_group_form(group)
         self.submit_group_creation()
         self.return_to_groups_page()
+        self.group_cache = None
 
     def create_if_required(self, group):
         self.app.goto.groups_page()
@@ -65,22 +66,27 @@ class GroupHelper:
         self.fill_group_form(group)
         self.submit_group_modification()
         self.return_to_groups_page()
+        self.group_cache = None
 
     def delete(self):
         self.app.goto.groups_page()
         self.select_group()
         self.submit_group_deletion()
         self.return_to_groups_page()
+        self.group_cache = None
 
     def return_to_groups_page(self):
         self.app.goto.groups_page()
 
+    group_cache = None
+
     def get_group_list(self):
-        wd = self.app.wd
-        self.app.goto.groups_page()
-        groups = []
-        for element in wd.find_elements_by_css_selector("span.group"):
-            id = element.find_element_by_name("selected[]").get_attribute("value")
-            name = element.text
-            groups.append(Group(name=name, id=id))
-        return groups
+        if self.group_cache is None:
+            wd = self.app.wd
+            self.app.goto.groups_page()
+            self.group_cache = []
+            for element in wd.find_elements_by_css_selector("span.group"):
+                id = element.find_element_by_name("selected[]").get_attribute("value")
+                name = element.text
+                self.group_cache.append(Group(name=name, id=id))
+        return list(self.group_cache)
