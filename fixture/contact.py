@@ -38,6 +38,10 @@ class ContactHelper:
         wd = self.app.wd
         wd.find_element_by_name("selected[]").click()
 
+    def select_contact_by_index(self, index):
+        wd = self.app.wd
+        wd.find_elements_by_name("selected[]")[index].click()
+
     def select_group(self):
         wd = self.app.wd
         if not wd.find_element_by_xpath("//div[@id='content']/form/select[@name='new_group']//option[1]").is_selected():
@@ -81,18 +85,24 @@ class ContactHelper:
         if self.count() == 0:
             self.create(contact)
 
-    def modify(self, contact):
+    def modify_first_contact(self):
+        self.modify_contact_by_index(0)
+
+    def modify_contact_by_index(self, index, contact):
         self.app.goto.home_page()
-        self.select_contact()
+        self.select_contact_by_index(index)
         self.init_contact_modification()
         self.fill_contact_form(contact)
         self.submit_contact_modification()
         self.return_to_home_page()
         self.contact_cache = None
 
-    def delete(self):
+    def delete_first_contact(self):
+        self.delete_contact_by_index(0)
+
+    def delete_contact_by_index(self, index):
         self.app.goto.home_page()
-        self.select_contact()
+        self.select_contact_by_index(index)
         self.submit_contact_deletion()
         self.confirm_contact_deletion()
         self.return_to_home_page()
