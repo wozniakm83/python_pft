@@ -6,7 +6,8 @@ from model.group import Group
 def test_modify_contact(app):
     app.group.create_if_required(Group(name="test"))
     app.contact.create_if_required(Contact(firstname="Jon", lastname="Snow"))
-    app.contact.modify(Contact(
+    old_contacts = app.contact.get_contact_list()
+    contact = Contact(
         firstname="new firstname",
         middlename="new middlename",
         lastname="new lastname",
@@ -21,4 +22,11 @@ def test_modify_contact(app):
         email="new_test@email.com",
         email2="new_test2@email.com",
         email3="new_test3@email.com",
-        homepage="http://www.newhomepage.com"))
+        homepage="http://www.newhomepage.com")
+    contact.id = old_contacts[0].id
+    app.contact.modify(contact)
+    new_contacts = app.contact.get_contact_list()
+    assert len(old_contacts) == len(new_contacts)
+    old_contacts[0] = contact
+    assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
+
