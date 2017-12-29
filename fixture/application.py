@@ -11,11 +11,18 @@ class Application:
         self.wd = WebDriver(capabilities={"marionette": False})
         """self.wd = WebDriver(capabilities={"marionette": False},
                             firefox_binary="C:/Program Files (x86)/Mozilla Firefox ESR/firefox.exe")"""
-        self.wd.implicitly_wait(60)
+        self.wd.implicitly_wait(5)
         self.session = SessionHelper(self)
         self.goto = NavigationHelper(self)
         self.group = GroupHelper(self)
         self.contact = ContactHelper(self)
+
+    def is_valid(self):
+        try:
+            self.wd.current_url
+            return True
+        except:
+            return False
 
     def destroy(self):
         self.wd.quit()

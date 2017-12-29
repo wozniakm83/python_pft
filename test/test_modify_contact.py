@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 from model.contact import Contact
+from model.group import Group
 
 
 def test_modify_contact(app):
-    app.session.login(username="admin", password="secret")
+    app.group.create_if_required(Group(name="test"))
+    app.contact.create_if_required(Contact(firstname="Jon", lastname="Snow"))
     app.contact.modify(Contact(
         firstname="new firstname",
         middlename="new middlename",
@@ -20,4 +22,3 @@ def test_modify_contact(app):
         email2="new_test2@email.com",
         email3="new_test3@email.com",
         homepage="http://www.newhomepage.com"))
-    app.session.logout()
