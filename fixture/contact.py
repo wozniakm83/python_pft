@@ -103,9 +103,8 @@ class ContactHelper:
         self.app.goto.home_page()
         contacts = []
         for element in wd.find_elements_by_name("entry"):
-        #for element in wd.find_elements_by_css_selector("//[@id ='maintable']/tbody/tr[class name='entry']"):
+            id = element.find_element_by_name("selected[]").get_attribute("value")
             firstname = element.find_element_by_css_selector("td:nth-child(3)").text
             lastname = element.find_element_by_css_selector("td:nth-child(2)").text
-            element.find_element_by_name("selected[]").get_attribute("value")
             contacts.append(Contact(firstname=firstname, lastname=lastname, id=id))
         return contacts
