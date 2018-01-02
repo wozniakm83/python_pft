@@ -51,9 +51,12 @@ class ContactHelper:
         wd = self.app.wd
         wd.find_element_by_xpath("//*[@id='nav']/ul/li[2]/a").click()
 
-    def init_contact_modification(self):
+    def init_contact_modification(self, contact):
         wd = self.app.wd
-        wd.find_element_by_xpath("//*[@id='maintable']/tbody/tr[2]/td[8]/a/img").click()
+        wd.find_element_by_css_selector("a[href='edit.php?id=" + str(contact.id) + "']").click()
+
+
+        # maintable > tbody > tr.odd > td:nth-child(8) > a
 
     def submit_contact_creation(self):
         wd = self.app.wd
@@ -85,13 +88,13 @@ class ContactHelper:
         if self.count() == 0:
             self.create(contact)
 
-    def modify_first_contact(self):
-        self.modify_contact_by_index(0)
+    def modify_first_contact(self, contact):
+        self.modify_contact_by_index(0, contact)
 
     def modify_contact_by_index(self, index, contact):
         self.app.goto.home_page()
         self.select_contact_by_index(index)
-        self.init_contact_modification()
+        self.init_contact_modification(contact)
         self.fill_contact_form(contact)
         self.submit_contact_modification()
         self.return_to_home_page()

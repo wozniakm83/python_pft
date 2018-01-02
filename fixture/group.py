@@ -63,8 +63,8 @@ class GroupHelper:
         if self.count() == 0:
             self.create(group)
 
-    def modify_first_group(self):
-        self.modify_group_by_index(0)
+    def modify_first_group(self, group):
+        self.modify_group_by_index(0, group)
 
     def modify_group_by_index(self, index, group):
         self.app.goto.groups_page()
