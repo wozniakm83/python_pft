@@ -43,6 +43,12 @@ class ContactHelper:
         wd = self.app.wd
         wd.find_elements_by_name("selected[]")[index].click()
 
+    def select_contact_by_id(self, id):
+        wd = self.app.wd
+        entry = wd.find_element_by_css_selector("input[value='%s']" % str(id))
+        entry.click()
+        return entry
+
     def select_group(self):
         wd = self.app.wd
         if not wd.find_element_by_xpath("//div[@id='content']/form/select[@name='new_group']//option[1]").is_selected():
@@ -52,9 +58,9 @@ class ContactHelper:
         wd = self.app.wd
         wd.find_element_by_xpath("//*[@id='nav']/ul/li[2]/a").click()
 
-    def init_contact_modification(self, contact):
+    def init_contact_modification(self, id):
         wd = self.app.wd
-        wd.find_element_by_css_selector("a[href='edit.php?id=" + str(contact.id) + "']").click()
+        wd.find_element_by_css_selector("a[href='edit.php?id=" + str(id) + "']").click()
 
     def submit_contact_creation(self):
         wd = self.app.wd
@@ -98,12 +104,29 @@ class ContactHelper:
         self.return_to_home_page()
         self.contact_cache = None
 
+    def modify_contact_by_id(self, id, contact):
+        self.app.goto.home_page()
+        self.select_contact_by_id(id)
+        self.init_contact_modification(id)
+        self.fill_contact_form(contact)
+        self.submit_contact_modification()
+        self.return_to_home_page()
+        self.contact_cache = None
+
     def delete_first_contact(self):
         self.delete_contact_by_index(0)
 
     def delete_contact_by_index(self, index):
         self.app.goto.home_page()
         self.select_contact_by_index(index)
+        self.submit_contact_deletion()
+        self.confirm_contact_deletion()
+        self.return_to_home_page()
+        self.contact_cache = None
+
+    def delete_contact_by_id(self, id):
+        self.app.goto.home_page()
+        self.select_contact_by_id(id)
         self.submit_contact_deletion()
         self.confirm_contact_deletion()
         self.return_to_home_page()

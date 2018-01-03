@@ -4,19 +4,9 @@ from random import randrange
 import re
 
 
-def test_contact_data_on_home_page(app):
+def test_contact_data_on_home_page(app, json_contact_mod):
     app.group.create_if_required(Group(name="test"))
-    app.contact.create_if_required(Contact(firstname="Jon",
-                                           lastname="Snow",
-                                           address="address",
-                                           home="+12345",
-                                           mobile="(123)45",
-                                           work="1-23-45",
-                                           phone2="1 23 45",
-                                           email="test@email.com",
-                                           email2="test2@email.com",
-                                           email3="test3@email.com"
-                                           ))
+    app.contact.create_if_required(json_contact_mod)
     old_contacts = app.contact.get_contact_list()
     index = randrange(len(old_contacts))
     contact_from_home_page = app.contact.get_contact_list()[index]
@@ -28,15 +18,9 @@ def test_contact_data_on_home_page(app):
     assert contact_from_home_page.all_emails == merge_emails_like_on_home_page(contact_from_edit_page)
 
 
-def test_contact_phones_on_view_page(app):
+def test_contact_phones_on_view_page(app, json_contact_mod):
     app.group.create_if_required(Group(name="test"))
-    app.contact.create_if_required(Contact(firstname="Jon",
-                                           lastname="Snow",
-                                           home="+12345",
-                                           mobile="(123)45",
-                                           work="1-23-45",
-                                           phone2="1 23 45"
-                                           ))
+    app.contact.create_if_required(json_contact_mod)
     old_contacts = app.contact.get_contact_list()
     index = randrange(len(old_contacts))
     contact_from_view_page = app.contact.get_contact_from_view_page(index)
