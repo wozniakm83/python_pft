@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 from model.contact import Contact
-from model.group import Group
 import random
 
 
-def test_delete_contact(app, db, check_ui):
-    app.group.create_if_required(Group(name="test"))
-    app.contact.create_if_required(Contact(firstname="Jon", lastname="Snow"))
+def test_delete_contact(app, db, data_contacts, data_groups, check_ui):
+    app.group.create_if_required(data_groups)
+    app.contact.create_if_required(data_contacts)
     old_contacts = db.get_contact_list()
     contact = random.choice(old_contacts)
     app.contact.delete_contact_by_id(contact.id)

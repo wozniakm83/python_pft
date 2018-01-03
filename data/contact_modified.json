@@ -1,0 +1,24 @@
+[
+  {
+    "py/object": "model.contact.Contact",
+    "address": "New Address",
+    "all_emails": null,
+    "all_phones": null,
+    "company": "New Company AG",
+    "email": "new_random@email.com",
+    "email2": "new_random2@email.com",
+    "email3": "new_random3@email.com",
+    "fax": "098-7654321",
+    "firstname": "Firstname",
+    "home": "+0987654321",
+    "homepage": "http://www.newhomepage.com",
+    "id": null,
+    "lastname": "New Lastname",
+    "middlename": "New Middlename",
+    "mobile": "+(098)7654321",
+    "nickname": "New Nickname",
+    "phone2": "+(09)876-54-321",
+    "title": "New Title",
+    "work": "09-876-543-21"
+  }
+]

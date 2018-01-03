@@ -1,0 +1,24 @@
+[
+  {
+    "py/object": "model.contact.Contact",
+    "address": "Address",
+    "all_emails": null,
+    "all_phones": null,
+    "company": "Company, Inc.",
+    "email": "random@email.com",
+    "email2": "random2@email.com",
+    "email3": "random3@email.com",
+    "fax": "123-4567890",
+    "firstname": "Firstname",
+    "home": "+1234567890",
+    "homepage": "http://www.homepage.com",
+    "id": null,
+    "lastname": "Lastname",
+    "middlename": "Middlename",
+    "mobile": "+(123)4567890",
+    "nickname": "Nickname",
+    "phone2": "+(12)345-67-890",
+    "title": "Title",
+    "work": "12-345-678-90"
+  }
+]

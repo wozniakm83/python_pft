@@ -4,9 +4,9 @@ from random import randrange
 import re
 
 
-def test_contact_data_on_home_page(app, json_contact_mod):
-    app.group.create_if_required(Group(name="test"))
-    app.contact.create_if_required(json_contact_mod)
+def test_contact_data_on_home_page(app, data_contacts, data_groups):
+    app.group.create_if_required(data_groups)
+    app.contact.create_if_required(data_contacts)
     old_contacts = app.contact.get_contact_list()
     index = randrange(len(old_contacts))
     contact_from_home_page = app.contact.get_contact_list()[index]
@@ -18,9 +18,9 @@ def test_contact_data_on_home_page(app, json_contact_mod):
     assert contact_from_home_page.all_emails == merge_emails_like_on_home_page(contact_from_edit_page)
 
 
-def test_contact_phones_on_view_page(app, json_contact_mod):
-    app.group.create_if_required(Group(name="test"))
-    app.contact.create_if_required(json_contact_mod)
+def test_contact_phones_on_view_page(app, data_contacts, data_groups):
+    app.group.create_if_required(data_groups)
+    app.contact.create_if_required(data_contacts)
     old_contacts = app.contact.get_contact_list()
     index = randrange(len(old_contacts))
     contact_from_view_page = app.contact.get_contact_from_view_page(index)

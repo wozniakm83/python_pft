@@ -3,11 +3,11 @@ from model.group import Group
 from random import randrange
 
 
-def test_modify_group_name(app, db, check_ui):
-    app.group.create_if_required(Group(name="test"))
+def test_modify_group_name(app, db, json_group_modified, data_groups, check_ui):
+    app.group.create_if_required(data_groups)
     old_groups = db.get_group_list()
     index = randrange(len(old_groups))
-    group = Group(name="new name", header="new header", footer="new footer")
+    group = json_group_modified
     group.id = old_groups[index].id
     app.group.modify_group_by_id(group.id, group)
     assert len(old_groups) == app.group.count()

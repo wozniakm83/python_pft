@@ -1,0 +1,9 @@
+[
+  {
+    "py/object": "model.group.Group",
+    "footer": "new_footer",
+    "header": "new_header",
+    "id": null,
+    "name": "new_name"
+  }
+]

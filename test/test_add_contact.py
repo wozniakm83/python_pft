@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 from model.contact import Contact
-from model.group import Group
 
 
-def test_add_contact(app, db, data_contacts, check_ui):
-    app.group.create_if_required(Group(name="test"))
-    contact = data_contacts
+def test_add_contact(app, db, json_contact_default, data_groups, check_ui):
+    app.group.create_if_required(data_groups)
+    contact = json_contact_default
     old_contacts = db.get_contact_list()
     app.contact.create(contact)
     new_contacts = db.get_contact_list()

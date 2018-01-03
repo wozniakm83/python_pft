@@ -1,15 +1,14 @@
 # -*- coding: utf-8 -*-
 from model.contact import Contact
-from model.group import Group
 from random import randrange
 
 
-def test_modify_contact(app, db, json_contact_mod, check_ui):
-    app.group.create_if_required(Group(name="test"))
-    app.contact.create_if_required(Contact(firstname="Jon", lastname="Snow"))
+def test_modify_contact(app, db, json_contact_modified, data_contacts, data_groups, check_ui):
+    app.group.create_if_required(data_groups)
+    app.contact.create_if_required(data_contacts)
     old_contacts = db.get_contact_list()
     index = randrange(len(old_contacts))
-    contact = json_contact_mod
+    contact = json_contact_modified
     contact.id = old_contacts[index].id
     app.contact.modify_contact_by_id(contact.id, contact)
     assert len(old_contacts) == app.contact.count()

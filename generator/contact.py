@@ -24,22 +24,22 @@ for o, a in opts:
 
 
 def random_string(maxlen):
-    symbols = string.ascii_letters + string.digits + string.punctuation + " " * 3
-    return "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
+    symbols = string.ascii_letters + string.digits + string.punctuation + " "
+    return "".join([random.choice(symbols) for i in range(random.randrange(maxlen))]).strip()
 
 
 def random_alphanumeric_string(maxlen):
-    symbols = string.ascii_letters + string.digits + " " * 3
-    return "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
+    symbols = string.ascii_letters + string.digits + " "
+    return "".join([random.choice(symbols) for i in range(random.randrange(maxlen))]).strip()
 
 
 def random_alphabetical_string(maxlen):
-    symbols = string.ascii_letters + " " * 3
-    return "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
+    symbols = string.ascii_letters + " "
+    return "".join([random.choice(symbols) for i in range(random.randrange(maxlen))]).strip()
 
 
 def random_numeric_string(maxlen):
-    symbols = string.digits + " " * 3
+    symbols = string.digits
     return "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
 
 
@@ -54,8 +54,8 @@ def random_url(maxlen):
 
 def random_phone_number(maxlen):
     punctuation = [".", "_", "+", "-", "(", ")", " "]
-    symbols = string.digits + random.choice(punctuation) * 3
-    return "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
+    symbols = string.digits + random.choice(punctuation)
+    return "".join([random.choice(symbols) for i in range(random.randrange(maxlen))]).strip()
 
 
 def random_email(maxlen):

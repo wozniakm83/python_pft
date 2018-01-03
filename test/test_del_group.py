@@ -3,8 +3,8 @@ from model.group import Group
 import random
 
 
-def test_delete_group(app, db, check_ui):
-    app.group.create_if_required(Group(name="test"))
+def test_delete_group(app, db, data_groups, check_ui):
+    app.group.create_if_required(data_groups)
     old_groups = db.get_group_list()
     group = random.choice(old_groups)
     app.group.delete_group_by_id(group.id)
