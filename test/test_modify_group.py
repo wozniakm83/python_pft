@@ -3,8 +3,8 @@ from model.group import Group
 from random import randrange
 
 
-def test_modify_group_name(app, db, json_group_modified, data_groups, check_ui):
-    app.group.create_if_required(data_groups)
+def test_modify_group_name(app, db, json_group_modified, json_group_default, check_ui):
+    app.group.create_if_required(json_group_default)
     old_groups = db.get_group_list()
     index = randrange(len(old_groups))
     group = json_group_modified

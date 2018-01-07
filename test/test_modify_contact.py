@@ -3,9 +3,9 @@ from model.contact import Contact
 from random import randrange
 
 
-def test_modify_contact(app, db, json_contact_modified, data_contacts, data_groups, check_ui):
-    app.group.create_if_required(data_groups)
-    app.contact.create_if_required(data_contacts)
+def test_modify_contact(app, db, json_contact_modified, json_contact_default, json_group_default, check_ui):
+    app.group.create_if_required(json_group_default)
+    app.contact.create_if_required(json_contact_default)
     old_contacts = db.get_contact_list()
     index = randrange(len(old_contacts))
     contact = json_contact_modified

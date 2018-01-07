@@ -2,8 +2,8 @@
 from model.contact import Contact
 
 
-def test_add_contact(app, db, json_contact_default, data_groups, check_ui):
-    app.group.create_if_required(data_groups)
+def test_add_contact(app, db, json_contact_default, json_group_default, check_ui):
+    app.group.create_if_required(json_group_default)
     contact = json_contact_default
     old_contacts = db.get_contact_list()
     app.contact.create(contact)

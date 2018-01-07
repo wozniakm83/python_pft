@@ -3,9 +3,9 @@ from model.contact import Contact
 import random
 
 
-def test_delete_contact(app, db, data_contacts, data_groups, check_ui):
-    app.group.create_if_required(data_groups)
-    app.contact.create_if_required(data_contacts)
+def test_delete_contact(app, db, json_contact_default, json_group_default, check_ui):
+    app.group.create_if_required(json_group_default)
+    app.contact.create_if_required(json_contact_default)
     old_contacts = db.get_contact_list()
     contact = random.choice(old_contacts)
     app.contact.delete_contact_by_id(contact.id)
