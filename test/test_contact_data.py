@@ -1,12 +1,26 @@
 from random import randrange
+from model.contact import Contact
 import re
+
+
+def test_contacts_on_home_page(app, db, json_contact_default, json_group_default):
+    app.group.create_if_required(json_group_default)
+    app.contact.create_if_required(json_contact_default)
+    contacts_from_home_page = sorted(app.contact.get_contact_list(), key=Contact.id_or_max)
+    contacts_from_db = sorted(db.get_contact_list(), key=Contact.id_or_max)
+    for contact_from_home_page in contacts_from_home_page:
+        index = contacts_from_home_page.index(contact_from_home_page)
+        contact_from_db = contacts_from_db[index]
+        assert contact_from_home_page.firstname == contact_from_db.firstname
+        assert contact_from_home_page.lastname == contact_from_db.lastname
+        assert contact_from_home_page.address == contact_from_db.address
 
 
 def test_contact_data_on_home_page(app, json_contact_default, json_group_default):
     app.group.create_if_required(json_group_default)
     app.contact.create_if_required(json_contact_default)
-    old_contacts = app.contact.get_contact_list()
-    index = randrange(len(old_contacts))
+    contacts = app.contact.get_contact_list()
+    index = randrange(len(contacts))
     contact_from_home_page = app.contact.get_contact_list()[index]
     contact_from_edit_page = app.contact.get_contact_info_from_edit_page(index)
     assert contact_from_home_page.firstname == contact_from_edit_page.firstname
